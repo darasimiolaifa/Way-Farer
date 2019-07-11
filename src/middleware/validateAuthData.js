@@ -16,6 +16,20 @@ class AuthValidationClass {
     }
     return next();
   }
+  
+  static async signin({ body }, res, next) {
+    const fields = ['email', 'password'];
+    const errors = [];
+    
+    fields.forEach(element => validator(element, body, errors));
+    const user = await HelperUtils.validateAuthDetails(body, errors);
+    
+    if (errors.length > 0) {
+      return res.status(401).send({ status: 401, errors });
+    }
+    body.user = { ...user };
+    return next();
+  }
 }
 
 export default AuthValidationClass;

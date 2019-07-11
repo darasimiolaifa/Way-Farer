@@ -15,6 +15,7 @@ let user;
 describe('Authentication routes', () => {
   const apiPrefix = '/api/v1/auth';
   const signup = `${apiPrefix}/signup`;
+  const login = `${apiPrefix}/signin`;
   
   user = {
     firstName: faker.name.firstName(),
@@ -66,6 +67,40 @@ describe('Authentication routes', () => {
           .post(signup)
           .send(user);
         result.should.have.status(400);
+        result.body.should.have.property('errors');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
+  
+  describe('Signin Route', () => {
+    it('should log in a registered user', async () => {
+      try {
+        const { email, password } = user;
+        const result = await chai
+          .request(app)
+          .post(login)
+          .send({ email, password });
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+    
+    it('should reject a login attempt by an unregistered user', async () => {
+      const anotherUser = {
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+      };
+      
+      try {
+        const result = await chai
+          .request(app)
+          .post(login)
+          .send(anotherUser);
+        result.should.have.status(401);
         result.body.should.have.property('errors');
       } catch (error) {
         throw new Error(error);
