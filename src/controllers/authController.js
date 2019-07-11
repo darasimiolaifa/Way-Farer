@@ -16,6 +16,12 @@ class authController {
     const token = HelperUtils.generateToken(user);
     return res.status(201).send({ status: 201, data: { token, ...user } });
   }
+  
+  static signin({ body }, res) {
+    const { user } = body;
+    const token = HelperUtils.generateToken(user);
+    return res.status(200).send({ status: 200, data: { token, ...user } });
+  }
 }
 
 export default authController;
