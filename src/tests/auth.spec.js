@@ -1,0 +1,75 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable prefer-destructuring */
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import faker from 'faker';
+import app from '../server';
+
+chai.use(chaiHttp);
+chai.should();
+
+// eslint-disable-next-line no-unused-vars
+let token;
+let user;
+
+describe('Authentication routes', () => {
+  const apiPrefix = '/api/v1/auth';
+  const signup = `${apiPrefix}/signup`;
+  
+  user = {
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+  };
+  
+  describe('Signup Route', () => {
+    it('should successfully sign up a new user', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .post(signup)
+          .send(user);
+        result.should.have.status(201);
+        result.body.should.have.property('data');
+        const { data } = result.body;
+        data.should.have.property('token');
+        token = data.token;
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+    
+    it('should return an error message when one of the fields is empty, missing, or invalid', async () => {
+      const incompleteUser = {
+        firstName: faker.internet.email(),
+        email: faker.name.lastName(),
+        password: '',
+      };
+      
+      try {
+        const result = await chai
+          .request(app)
+          .post(signup)
+          .send(incompleteUser);
+        result.should.have.status(400);
+        result.body.should.have.property('errors');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+    
+    it('should return an error for registering with the same email twice', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .post(signup)
+          .send(user);
+        result.should.have.status(400);
+        result.body.should.have.property('errors');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
+});
