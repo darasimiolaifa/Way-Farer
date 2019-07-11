@@ -54,7 +54,7 @@ describe('Authentication routes', () => {
           .post(signup)
           .send(incompleteUser);
         result.should.have.status(400);
-        result.body.should.have.property('errors');
+        result.body.should.have.property('error');
       } catch (error) {
         throw new Error(error);
       }
@@ -67,7 +67,7 @@ describe('Authentication routes', () => {
           .post(signup)
           .send(user);
         result.should.have.status(400);
-        result.body.should.have.property('errors');
+        result.body.should.have.property('error');
       } catch (error) {
         throw new Error(error);
       }
@@ -101,7 +101,7 @@ describe('Authentication routes', () => {
           .post(login)
           .send(anotherUser);
         result.should.have.status(401);
-        result.body.should.have.property('errors');
+        result.body.should.have.property('error');
       } catch (error) {
         throw new Error(error);
       }

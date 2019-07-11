@@ -5,27 +5,27 @@ import HelperUtils from '../helperUtils/helperUtils';
 class AuthValidationClass {
   static async signup({ body }, res, next) {
     const fields = ['firstName', 'lastName', 'email', 'password'];
-    const errors = [];
+    const error = [];
     
-    fields.forEach(element => validator(element, body, errors));
+    fields.forEach(element => validator(element, body, error));
     
-    if (await HelperUtils.validateAuthDetails(body)) errors.push('This email is no longer available. Please pick another.');
+    if (await HelperUtils.validateAuthDetails(body)) error.push('This email is no longer available. Please pick another.');
     
-    if (errors.length > 0) {
-      return res.status(400).send({ status: 400, errors });
+    if (error.length > 0) {
+      return res.status(400).send({ status: 400, error });
     }
     return next();
   }
   
   static async signin({ body }, res, next) {
     const fields = ['email', 'password'];
-    const errors = [];
+    const error = [];
     
-    fields.forEach(element => validator(element, body, errors));
-    const user = await HelperUtils.validateAuthDetails(body, errors);
+    fields.forEach(element => validator(element, body, error));
+    const user = await HelperUtils.validateAuthDetails(body, error);
     
-    if (errors.length > 0) {
-      return res.status(401).send({ status: 401, errors });
+    if (error.length > 0) {
+      return res.status(401).send({ status: 401, error });
     }
     body.user = { ...user };
     return next();
