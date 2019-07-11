@@ -42,6 +42,25 @@ class HelperUtils {
       sub: user,
     }, process.env.APP_SECRET);
   }
+  
+  static serverResponse(response, res, status = 200, route, action) {
+    let reply;
+    if (response.name && response.name === 'error') {
+      reply = { status: 500, error: 'There was a problem fulfilling your request. Please try again later.' };
+    } else if (response.length === 0) {
+      reply = { status: 404, error: `There are no ${route} in our records at the moment.` };
+    } else if (Object.entries(response).length === 0) {
+      reply = { status: 404, error: `There is no such ${route.toLowerCase()} in our records.` };
+    } else if (action) reply = { status, data: { message: `${route} ${action} successfully.` } };
+    else reply = { status, data: response };
+    
+    return res.status(reply.status).send({ ...reply });
+  }
+  
+  static authServerResponse(error, code, res) {
+    if (error.length > 0) return res.status(code).send({ code, error });
+    return 1;
+  }
 }
 
 export default HelperUtils;
