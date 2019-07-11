@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- stable
+after_success: npm run coverage
+services:
+- postgresql
+before-script:
+- npm install
+- psql -c 'CREATE DATABASE wayfarer_testdb;' -U postgres
+deploy:
+  provider: heroku
+  app: darasimi-wayfarer
+  on: develop
+  api_key:
+    secure: wXjQ1IoN3spkvmKAJqAj6txKPp5aTGScjf1RwV/KfAqwq2smSNdgmuEfEa+cxsjtV83iMVi2Ph9B0CrVzNpde2uxSFppXW/6qxC38/SvvhUcv8THKq8ZlP1oQNY9s/fdyv/lbW4VjpYeOQnAE3C1bBlVK3jBQMa7DneGR5NytFbOxsg4UU16aw8O1duCH5RLwJ1Jo3kU2qWszZ0uOEtkDHh+emD0HH+x/zmrEeR8cvKh1s2usm4JXYvntMsBcFlRcFav89LjGaFTrI26jIPNRy+Ngrl2n2ityLfic1oyoXTDthOjOdCgpUmkCzB5To/xtsKjXyLqaTlS/qCKw3xhE58tK6b2S0G/lF1YGsRclR5YV80BbFRHvD8zpYKzjYB3X5fx1xWG3U84DDt2pzWz9xD/icI70/E8UYRd1Wn2bZphK5sByIa0ZFVei5bl3524BdCMwnVcXdy3P4hFW9606Ph5pr/JaZ3uG8zyLCpz6Wft9keb6l/lid4xO6COCsEmHMdqoujqJNpJF4W5EV2aZfTDzrpg22dViNnrA2Ier0jJp/5osgCWskQf1DN9PkIVcHIANtno+/4mk1CibAQtBE+A4UCKvez1193Iv615GOBRPu0cFGVv6AuEsSsmPup65R6I++UDxLa/UuaRTbHh0q/6E/4BVMLM2xJJgeZUgfc=

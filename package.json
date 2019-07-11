@@ -1,0 +1,63 @@
+{
+  "name": "way-farer",
+  "version": "1.0.0",
+  "description": "A public bus transport booking web application",
+  "nyc": {
+    "check-coverage": true,
+    "exclude": [
+      "src/**/*.spec.js"
+    ]
+  },
+  "main": "./src/app.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test npm run migrations && nyc --require @babel/register mocha ./src/tests/*.spec.js --exit",
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/app.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./src -s",
+    "build": "npm run clean && npm run build-babel",
+    "migrations": "node ./node_modules/@babel/node/bin/babel-node.js ./src/database/db.js",
+    "start": "npm run migrations && npm run build && node ./build/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darasimiolaifa/Way-Farer.git"
+  },
+  "keywords": [
+    "bus",
+    "transport",
+    "backend",
+    "booking"
+  ],
+  "author": "Darasimi Olaifa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/darasimiolaifa/Way-Farer/issues"
+  },
+  "homepage": "https://github.com/darasimiolaifa/Way-Farer#readme",
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4",
+    "bcryptjs": "^2.4.3",
+    "cross-env": "^5.2.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^7.11.0",
+    "swagger-ui-express": "^4.0.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/node": "^7.5.0",
+    "@babel/preset-env": "^7.5.4",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "coveralls": "^3.0.4",
+    "eslint": "^6.0.1",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.0",
+    "faker": "^4.1.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1"
+  }
+}
