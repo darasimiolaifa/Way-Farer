@@ -81,4 +81,19 @@ describe('Bus Routes', () => {
       }
     });
   });
+  
+  describe('Fetch all buses', () => {
+    it('should fetch all the buses in the database', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .get(allBuses)
+          .set('x-access-token', token);
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });

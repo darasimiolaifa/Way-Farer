@@ -4,6 +4,7 @@ import ValidateData from '../middleware/validateInputData';
 
 export default (server) => {
   server.route('/api/v1/buses')
+    .get(Authenticate.verifyToken, Authenticate.isAdmin, busController.fetchAllBuses)
     .post(
       Authenticate.verifyToken,
       Authenticate.isAdmin,
