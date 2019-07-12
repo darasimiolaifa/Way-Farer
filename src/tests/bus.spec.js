@@ -111,4 +111,23 @@ describe('Bus Routes', () => {
       }
     });
   });
+  
+  describe('Update a particular bus', () => {
+    it('should update a specific bus from the database', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .patch(`${allBuses}/${busId}`)
+          .set('x-access-token', token)
+          .send({
+            year: '2012',
+            capacity: 1,
+          });
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });

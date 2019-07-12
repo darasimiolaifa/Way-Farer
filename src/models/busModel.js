@@ -18,6 +18,11 @@ const busModel = {
     const sql = 'SELECT * FROM buses WHERE bus_id = $1';
     return query(sql, [busId]);
   },
+  
+  async updateBus({ busId, numberPlate, manufacturer, model, year, capacity }) {
+    const sql = 'UPDATE buses SET number_plate = $1, manufacturer = $2, model = $3, year = $4, capacity = $5 WHERE bus_id = $6 RETURNING *';
+    return query(sql, [numberPlate, manufacturer, model, year, capacity, busId]);
+  },
 };
 
 export default busModel;

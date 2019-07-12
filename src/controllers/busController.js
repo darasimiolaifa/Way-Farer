@@ -5,6 +5,7 @@ const {
   createBus,
   getAllBuses,
   getSingleBus,
+  updateBus,
 } = busModel;
 
 class busController {
@@ -21,6 +22,11 @@ class busController {
   static async fetchSingleBus({ params }, res) {
     const [response] = await getSingleBus(params);
     return HelperUtils.serverResponse(response, res);
+  }
+  
+  static async updateOldBus({ body }, res) {
+    const [response] = await updateBus(body);
+    return HelperUtils.serverResponse(response, res, 200, 'Bus', 'updated');
   }
 }
 
