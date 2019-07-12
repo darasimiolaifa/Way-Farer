@@ -96,4 +96,19 @@ describe('Bus Routes', () => {
       }
     });
   });
+  
+  describe('Fetch a particular bus', () => {
+    it('should fetch a specific bus from the database', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .get(`${allBuses}/${busId}`)
+          .set('x-access-token', token);
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });

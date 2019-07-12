@@ -1,7 +1,11 @@
 import busModel from '../models/busModel';
 import HelperUtils from '../helperUtils/helperUtils';
 
-const { createBus, getAllBuses } = busModel;
+const {
+  createBus,
+  getAllBuses,
+  getSingleBus,
+} = busModel;
 
 class busController {
   static async createNewBus({ body }, res) {
@@ -12,6 +16,11 @@ class busController {
   static async fetchAllBuses(req, res) {
     const response = await getAllBuses();
     return HelperUtils.serverResponse(response, res, 200, 'buses');
+  }
+  
+  static async fetchSingleBus({ params }, res) {
+    const [response] = await getSingleBus(params);
+    return HelperUtils.serverResponse(response, res);
   }
 }
 

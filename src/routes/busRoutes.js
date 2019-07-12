@@ -11,4 +11,7 @@ export default (server) => {
       ValidateData.validateBusData,
       busController.createNewBus,
     );
+    
+  server.route('/api/v1/buses/:busId')
+    .get(Authenticate.verifyToken, Authenticate.isAdmin, busController.fetchSingleBus);
 };
