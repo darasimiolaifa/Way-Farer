@@ -51,6 +51,26 @@ describe('Users Routes', () => {
     });
   });
   
+  describe('Update a user route', () => {
+    it('should allow user to update their accounts', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .patch(`${userRoute}/${userId}`)
+          .set('x-access-token', token)
+          .send({
+            email: faker.internet.email(),
+            firstName: faker.name.lastName(),
+          });
+          
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
+  
   describe('Delete a user route', () => {
     let adminToken;
     

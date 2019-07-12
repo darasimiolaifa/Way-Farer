@@ -38,7 +38,7 @@ class Authenticate {
     const { user } = body;
     if (url.includes('users')) {
       method = getSingleUser;
-      args = ['user_id', params.id, false];
+      args = ['user_id', params.userId, false];
     }
     const [resource] = await method(...args);
     if (resource && (resource.user_id !== user.user_id && !user.is_admin)) {

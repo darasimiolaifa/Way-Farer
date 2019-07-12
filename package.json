@@ -17,7 +17,7 @@
     "build-babel": "babel -d ./build ./src -s",
     "build": "npm run clean && npm run build-babel",
     "migrations": "node ./node_modules/@babel/node/bin/babel-node.js ./src/database/db.js",
-    "start": "npm run migrations && npm run build && node ./build/server.js"
+    "start": "npm run migrations && npm run build && node ./build/app.js"
   },
   "repository": {
     "type": "git",

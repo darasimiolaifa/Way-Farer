@@ -27,6 +27,18 @@ const UserModel = {
     }
   },
   
+  async updateUser(body, params) {
+    const { firstName, lastName, email } = body;
+    const { userId } = params;
+    const sql = 'UPDATE users SET first_name = $1, last_name = $2, email = $3 WHERE user_id = $4 RETURNING user_id, first_name, last_name, email, is_admin';
+    try {
+      const { rows } = await query(sql, [firstName, lastName, email, userId]);
+      return rows;
+    } catch (error) {
+      return error;
+    }
+  },
+  
   async deleteUser({ userId }) {
     const sql = 'DELETE FROM users WHERE user_id = $1 RETURNING user_id, email, first_name, last_name';
     try {
