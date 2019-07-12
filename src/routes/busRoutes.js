@@ -20,5 +20,6 @@ export default (server) => {
       Authenticate.isAdmin,
       BuildUpdateData.busData,
       busController.updateOldBus,
-    );
+    )
+    .delete(Authenticate.verifyToken, Authenticate.isAdmin, busController.deleteOldBus);
 };
