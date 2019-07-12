@@ -13,6 +13,11 @@ const busModel = {
     const sql = 'SELECT * FROM buses';
     return query(sql);
   },
+  
+  async getSingleBus({ busId }) {
+    const sql = 'SELECT * FROM buses WHERE bus_id = $1';
+    return query(sql, [busId]);
+  },
 };
 
 export default busModel;
