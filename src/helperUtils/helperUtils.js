@@ -10,9 +10,19 @@ class HelperUtils {
     return {
       name: /^[a-zA-Z]+$/,
       email: /^(\w+)([._-]?)(\w+)@([A-z0-9-_.]+)\.([A-z]{2,3})$/,
+      integer: /^[0-9]+$/,
+      string: /^(\w+)([-_.&]*\s*\w+)?$/,
       emptyBody: {
         test(requestBody) {
           return Object.entries(requestBody).length <= 1;
+        },
+      },
+      year: {
+        test(year) {
+          const yearInteger = Number(year);
+          const currentYear = new Date().getFullYear;
+          // eslint-disable-next-line no-restricted-globals
+          return !isNaN(yearInteger) && (!(yearInteger < 0) && !(yearInteger > currentYear));
         },
       },
     };

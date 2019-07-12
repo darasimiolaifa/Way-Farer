@@ -25,6 +25,23 @@ export default (key, body, errors) => {
         errors.push(`Please supply a valid ${key}`);
       }
       break;
+    case 'capacity':
+      if (!validator.integer.test(value)) {
+        errors.push(`Please supply a valid ${key}`);
+      }
+      break;
+    case 'year':
+      if (!validator.year.test(value)) {
+        errors.push(`Please supply a valid ${key}`);
+      }
+      break;
+    case 'model':
+    case 'manufacturer':
+    case 'numberPlate':
+      if (!validator.string.test(value)) {
+        errors.push(`Please supply a valid ${key}`);
+      }
+      break;
     default:
       break;
   }
