@@ -43,13 +43,37 @@ class HelperUtils {
     }, process.env.APP_SECRET);
   }
   
-  static serverResponse(response, res, status = 200, route) {
+  static transformToCamelCase(theString) {
+    const splittedString = theString.split('_');
+    const camelCasedArray = splittedString.map((element, index) => {
+      if (index === 0) return element;
+      return element[0].toUpperCase() + element.slice(1);
+    });
+    
+    return camelCasedArray.join('');
+  }
+  
+  static buildUpdateData(model, body, res, next) {
+    if (!model) return res.status(404).send({ status: 404, error: `${model} does not exist.` });
+    const fields = Object.keys(model);
+    fields.forEach((element) => {
+      const field = HelperUtils.transformToCamelCase(element);
+      body[field] = body[field] ? body[field] : model[element];
+    });
+    
+    return next();
+  }
+  
+  static serverResponse(response, res, status = 200, route, action) {
     let reply;
     if (response.name && response.name === 'error') {
       reply = { status: 500, error: 'There was a problem fulfilling your request. Please try again later.' };
+    } else if (response.length === 0) {
+      reply = { status: 404, error: `There are no ${route} in our records at the moment.` };
     } else if (Object.entries(response).length === 0) {
       reply = { status: 404, error: `There is no such ${route.toLowerCase()} in our records.` };
-    } else reply = { status, data: response };
+    } else if (action) reply = { status, data: { message: `${route} ${action} successfully.` } };
+    else reply = { status, data: response };
     
     return res.status(reply.status).send({ ...reply });
   }
