@@ -2,12 +2,18 @@ import userModel from '../models/userModel';
 import HelperUtils from '../helperUtils/helperUtils';
 
 const {
+  getAllUsers,
   getSingleUser,
   updateUser,
   deleteUser,
 } = userModel;
 
 class userController {
+  static async fetchAllUsers(req, res) {
+    const response = await getAllUsers();
+    return HelperUtils.serverResponse(response, res, 200, 'users');
+  }
+  
   static async fetchSingleUser({ params }, res) {
     const [response] = await getSingleUser('user_id', params.userId, false);
     return HelperUtils.serverResponse(response, res);

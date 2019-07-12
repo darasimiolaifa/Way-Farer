@@ -8,12 +8,13 @@ const pool = new Pool({
 });
 
 const queryFunction = {
-  query(queryString, params) {
-    return new Promise((resolve, reject) => {
-      pool.query(queryString, params)
-        .then(result => resolve(result))
-        .catch(error => reject(error));
-    });
+  async query(queryString, params) {
+    try {
+      const { rows } = await pool.query(queryString, params);
+      return rows;
+    } catch (error) {
+      return error;
+    }
   },
 };
 

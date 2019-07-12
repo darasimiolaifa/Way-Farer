@@ -25,6 +25,29 @@ describe('Users Routes', () => {
     password: faker.internet.password(),
   };
   
+  describe('Fetch All Users', () => {
+    it('should get all the users in the database for the Admin alone', async () => {
+      try {
+        let result = await chai
+          .request(app)
+          .post(login)
+          .send({ email: 'dakoloz@wayfarer.com', password: 'yppZgpjXNl61GvMmgzeV5' });
+        result.should.have.status(200);
+        const { data } = result.body;
+        token = data.token;
+        
+        result = await chai
+          .request(app)
+          .get(userRoute)
+          .set('x-access-token', token);
+        result.should.have.status(200);
+        result.body.should.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
+  
   describe('Fetch a particular user', () => {
     it('should get a specific user from the database', async () => {
       try {
