@@ -23,6 +23,11 @@ const busModel = {
     const sql = 'UPDATE buses SET number_plate = $1, manufacturer = $2, model = $3, year = $4, capacity = $5 WHERE bus_id = $6 RETURNING *';
     return query(sql, [numberPlate, manufacturer, model, year, capacity, busId]);
   },
+  
+  async deleteBus({ busId }) {
+    const sql = 'DELETE FROM buses WHERE bus_id = $1 RETURNING *';
+    return query(sql, [busId]);
+  },
 };
 
 export default busModel;

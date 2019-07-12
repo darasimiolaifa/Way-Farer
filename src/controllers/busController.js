@@ -6,6 +6,7 @@ const {
   getAllBuses,
   getSingleBus,
   updateBus,
+  deleteBus,
 } = busModel;
 
 class busController {
@@ -27,6 +28,11 @@ class busController {
   static async updateOldBus({ body }, res) {
     const [response] = await updateBus(body);
     return HelperUtils.serverResponse(response, res, 200, 'Bus', 'updated');
+  }
+  
+  static async deleteOldBus({ params }, res) {
+    const [response] = await deleteBus(params);
+    return HelperUtils.serverResponse(response, res, 200, 'Bus', 'deleted');
   }
 }
 
