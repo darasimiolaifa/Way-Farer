@@ -50,4 +50,44 @@ describe('Users Routes', () => {
       }
     });
   });
+  
+  describe('Delete a user route', () => {
+    let adminToken;
+    
+    it('should allow the admin alone to delete user accounts', async () => {
+      try {
+        let result = await chai
+          .request(app)
+          .post(login)
+          .send({ email: 'dakoloz@wayfarer.com', password: 'yppZgpjXNl61GvMmgzeV5' });
+        result.should.have.status(200);
+        const { data } = result.body;
+        adminToken = data.token;
+        
+        result = await chai
+          .request(app)
+          .delete(`${userRoute}/${userId}`)
+          .set('x-access-token', adminToken);
+          
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+    
+    it('should return error for attempting to delete a user that does not exist', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .delete(`${userRoute}/10`)
+          .set('x-access-token', adminToken);
+          
+        result.should.have.status(404);
+        result.body.should.have.property('error');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });

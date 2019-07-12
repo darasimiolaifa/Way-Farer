@@ -26,6 +26,16 @@ const UserModel = {
       return error;
     }
   },
+  
+  async deleteUser({ userId }) {
+    const sql = 'DELETE FROM users WHERE user_id = $1 RETURNING user_id, email, first_name, last_name';
+    try {
+      const { rows } = await query(sql, [Number(userId)]);
+      return rows;
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 export default UserModel;
