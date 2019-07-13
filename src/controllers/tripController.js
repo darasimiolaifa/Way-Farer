@@ -7,6 +7,7 @@ const {
   getSingleTrip,
   updateTrip,
   updateTripStatus,
+  deleteTrip,
 } = tripModel;
 
 class tripController {
@@ -34,6 +35,11 @@ class tripController {
   static async updateOldTripStatus({ params }, res) {
     const [response] = await updateTripStatus(params);
     return HelperUtils.serverResponse(response, res, 200, 'Trip', 'cancelled');
+  }
+  
+  static async deleteOldTrip({ params }, res) {
+    const [response] = await deleteTrip(params);
+    return HelperUtils.serverResponse(response, res, 200, 'Trip', 'deleted');
   }
 }
 
