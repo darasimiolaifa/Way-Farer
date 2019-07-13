@@ -11,7 +11,9 @@ class HelperUtils {
       name: /^[a-zA-Z]+$/,
       email: /^(\w+)([._-]?)(\w+)@([A-z0-9-_.]+)\.([A-z]{2,3})$/,
       integer: /^[0-9]+$/,
+      date: /^([0-9]{1,2})([/\-.]{1})([0-9]{1,2})([/\-.]{1})([0-9]{4})$/,
       string: /^(\w+)([-_.&]*\s*\w+)?$/,
+      float: /^([0-9]+)\.([0-9]{2})$/,
       emptyBody: {
         test(requestBody) {
           return Object.entries(requestBody).length <= 1;
