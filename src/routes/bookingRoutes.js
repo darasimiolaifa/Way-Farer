@@ -10,6 +10,7 @@ export default (server) => {
       ValidateData.validateBookingData,
       LogicalConstraints.checkDaysLeft,
       LogicalConstraints.checkSeatsLeft,
+      LogicalConstraints.checkSeatNumberAvailability,
       bookingController.createNewBooking,
     );
 };
