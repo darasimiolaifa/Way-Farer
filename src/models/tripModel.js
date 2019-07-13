@@ -32,6 +32,11 @@ const tripModel = {
     const sql = 'UPDATE trips SET status = $1 WHERE trip_id = $2 RETURNING *';
     return query(sql, ['cancelled', tripId]);
   },
+  
+  async deleteTrip({ tripId }) {
+    const sql = 'DELETE FROM trips WHERE trip_id = $1 RETURNING *';
+    return query(sql, [tripId]);
+  },
 };
 
 export default tripModel;
