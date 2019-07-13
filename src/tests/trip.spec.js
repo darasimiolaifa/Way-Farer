@@ -126,4 +126,19 @@ describe('Trips Routes', () => {
       }
     });
   });
+  
+  describe('Cancel trip', () => {
+    it('should change the status of a trip to cancelled', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .patch(`${allTrips}/${tripId}`)
+          .set('x-access-token', token);
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });

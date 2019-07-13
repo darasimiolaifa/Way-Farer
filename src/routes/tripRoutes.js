@@ -14,7 +14,8 @@ export default (server) => {
     );
   
   server.route('/api/v1/trips/:tripId')
-    .get(Authenticate.verifyToken, tripController.fetchSingleTrip);
+    .get(Authenticate.verifyToken, tripController.fetchSingleTrip)
+    .patch(Authenticate.verifyToken, Authenticate.isAdmin, tripController.updateOldTripStatus);
     
   server.route('/api/v1/trips/:tripId/edit')
     .patch(
