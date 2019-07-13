@@ -68,4 +68,38 @@ describe('Booking Routes', () => {
       }
     });
   });
+  
+  describe('Create a booking with a seat number', () => {
+    it('should return an error for attempting to register with a seat number greater than bus capacity', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .post(allBookings)
+          .set('x-access-token', token)
+          .send({ ...booking, seatNumber: 20 });
+          
+        result.should.have.status(400);
+        result.body.should.have.property('error');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+    
+    it('should allow a user to specify a seat number while booking successfully', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .post(allBookings)
+          .set('x-access-token', token)
+          .send({ ...booking, seatNumber: 7 });
+        
+        result.should.have.status(201);
+        result.body.should.have.property('data');
+        const { data } = result.body;
+        data.should.be.an('object');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });
