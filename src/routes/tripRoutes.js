@@ -1,6 +1,7 @@
 import tripController from '../controllers/tripController';
 import Authenticate from '../middleware/authenticator';
 import ValidateData from '../middleware/validateInputData';
+import BuildUpdateData from '../middleware/buildUpdateData';
 
 export default (server) => {
   server.route('/api/v1/trips')
@@ -14,4 +15,13 @@ export default (server) => {
   
   server.route('/api/v1/trips/:tripId')
     .get(Authenticate.verifyToken, tripController.fetchSingleTrip);
+    
+  server.route('/api/v1/trips/:tripId/edit')
+    .patch(
+      Authenticate.verifyToken,
+      Authenticate.isAdmin,
+      BuildUpdateData.tripData,
+      ValidateData.validateTripData,
+      tripController.updateOldTrip,
+    );
 };

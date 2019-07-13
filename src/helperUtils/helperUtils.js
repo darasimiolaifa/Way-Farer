@@ -65,8 +65,8 @@ class HelperUtils {
     return camelCasedArray.join('');
   }
   
-  static buildUpdateData(model, body, res, next) {
-    if (!model) return res.status(404).send({ status: 404, error: `${model} does not exist.` });
+  static buildUpdateData(model, resource, body, res, next) {
+    if (!model) return res.status(404).send({ status: 404, error: `${resource} does not exist.` });
     const fields = Object.keys(model);
     fields.forEach((element) => {
       const field = HelperUtils.transformToCamelCase(element);

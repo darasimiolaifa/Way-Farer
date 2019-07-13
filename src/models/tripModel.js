@@ -20,6 +20,13 @@ const tripModel = {
     
     return query(sql, [tripId]);
   },
+  
+  async updateTrip({
+    tripId, busId, origin, destination, fare, tripDate,
+  }) {
+    const sql = 'UPDATE trips SET bus_id = $1, origin = $2, destination = $3, fare = $4, trip_date = $5 WHERE trip_id = $6 RETURNING *';
+    return query(sql, [busId, origin, destination, fare, tripDate, tripId]);
+  },
 };
 
 export default tripModel;

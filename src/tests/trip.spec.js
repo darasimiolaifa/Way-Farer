@@ -107,4 +107,23 @@ describe('Trips Routes', () => {
       }
     });
   });
+  
+  describe('Update a particular trip', () => {
+    it('should update a specific trip record', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .patch(`${allTrips}/${tripId}/edit`)
+          .set('x-access-token', token)
+          .send({
+            tripDate: faker.date.future(),
+            fare: faker.finance.amount(),
+          });
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });

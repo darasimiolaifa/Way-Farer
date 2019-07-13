@@ -5,6 +5,7 @@ const {
   createTrip,
   getAllTrips,
   getSingleTrip,
+  updateTrip,
 } = tripModel;
 
 class tripController {
@@ -22,6 +23,11 @@ class tripController {
   static async fetchSingleTrip({ params }, res) {
     const [response] = await getSingleTrip(params);
     return HelperUtils.serverResponse(response, res);
+  }
+  
+  static async updateOldTrip({ body }, res) {
+    const [response] = await updateTrip(body);
+    return HelperUtils.serverResponse(response, res, 200, 'Trip', 'updated');
   }
 }
 
