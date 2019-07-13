@@ -1,8 +1,10 @@
 /* eslint-disable no-param-reassign */
 import JWT from 'jsonwebtoken';
 import userModel from '../models/userModel';
+import bookingModel from '../models/bookingModel';
 
 const { getSingleUser } = userModel;
+const { getSingleBooking } = bookingModel;
 
 class Authenticate {
   static async verifyToken({ headers, body }, res, next) {
@@ -39,6 +41,9 @@ class Authenticate {
     if (url.includes('users')) {
       method = getSingleUser;
       args = ['user_id', params.userId, false];
+    } else if (url.includes('bookings')) {
+      method = getSingleBooking;
+      args = params.bookingId.match(/[0-9]+,[0-9]+/)[0].split(',');
     }
     const [resource] = await method(...args);
     if (resource && (resource.user_id !== user.user_id && !user.is_admin)) {

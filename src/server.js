@@ -4,6 +4,7 @@ import addAuthRoutes from './routes/authRoutes';
 import addUserRoutes from './routes/userRoutes';
 import addBusRoutes from './routes/busRoutes';
 import addTripRoutes from './routes/tripRoutes';
+import addBookingRoutes from './routes/bookingRoutes';
 
 const server = express();
 
@@ -14,5 +15,6 @@ addAuthRoutes(server);
 addUserRoutes(server);
 addBusRoutes(server);
 addTripRoutes(server);
+addBookingRoutes(server);
 
 export default server;

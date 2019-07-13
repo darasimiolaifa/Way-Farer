@@ -73,7 +73,7 @@ const createTables = () => {
     trip_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     created_on DATE NOT NULL DEFAULT CURRENT_DATE,
-    seat_number INTEGER DEFAULT NULL,
+    seat_number INTEGER NOT NULL,
     FOREIGN KEY(trip_id) REFERENCES trips(trip_id),
     FOREIGN KEY(user_id) REFERENCES users(user_id)
   );
