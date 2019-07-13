@@ -92,4 +92,19 @@ describe('Trips Routes', () => {
       }
     });
   });
+  
+  describe('Fetch a particular trip', () => {
+    it('should fetch a specific trip record', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .get(`${allTrips}/${tripId}`)
+          .set('x-access-token', token);
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });
