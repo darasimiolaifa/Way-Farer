@@ -11,4 +11,7 @@ export default (server) => {
       ValidateData.validateTripData,
       tripController.createNewTrip,
     );
+  
+  server.route('/api/v1/trips/:tripId')
+    .get(Authenticate.verifyToken, tripController.fetchSingleTrip);
 };
