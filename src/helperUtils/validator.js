@@ -5,11 +5,12 @@ const validator = HelperUtils.validate();
 
 export default (key, body, errors) => {
   const value = body[key];
+  const optionalFields = ['seatNumber'];
   
   if (validator.emptyBody.test(body)) {
     errors.push('The request body is empty. Please supply arguments to the endpoint.');
   }
-  if (!value || value.length === 0) {
+  if ((!value || value.length === 0) && !optionalFields.includes(key)) {
     errors.push(`The ${key} field is missing from your input. Please fill it and resend.`);
   }
   
@@ -46,6 +47,11 @@ export default (key, body, errors) => {
       break;
     case 'tripDate':
       if (!validator.date.test(new Date(`${value}`).toLocaleDateString())) {
+        errors.push(`Please supply a valid ${key}`);
+      }
+      break;
+    case 'seatNumber':
+      if (value && !(validator.integer.test(value) && value > 0)) {
         errors.push(`Please supply a valid ${key}`);
       }
       break;
