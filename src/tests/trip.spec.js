@@ -77,4 +77,19 @@ describe('Trips Routes', () => {
       }
     });
   });
+  
+  describe('Fetch all trips without filters', () => {
+    it('should fetch all trips for any registered user', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .get(allTrips)
+          .set('x-access-token', token);
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });
