@@ -22,6 +22,18 @@ const bookingModel = {
     
     return query(sql, [tripId, userId]);
   },
+  
+  async getAllBookings({ is_admin: isAdmin, user_id: userId }) {
+    let sql = 'SELECT b.booking_id, b.trip_id, b.user_id, b.seat_number, t.origin, t.destination, t.trip_date, t.bus_id, u.first_name, u.last_name, u.email, (t.trip_date - CURRENT_DATE) AS days_left FROM bookings AS b INNER JOIN trips AS t USING(trip_id) INNER JOIN users AS u USING(user_id)';
+    const queryParams = [];
+    
+    if (!isAdmin) {
+      sql += ' WHERE b.user_id = $1';
+      queryParams.push(userId);
+    }
+    
+    return query(sql, queryParams);
+  },
 };
 
 export default bookingModel;

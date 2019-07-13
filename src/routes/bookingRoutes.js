@@ -5,6 +5,7 @@ import LogicalConstraints from '../middleware/checkLogicalConstraints';
 
 export default (server) => {
   server.route('/api/v1/bookings')
+    .get(Authenticate.verifyToken, bookingController.fetchAllBookings)
     .post(
       Authenticate.verifyToken,
       ValidateData.validateBookingData,
