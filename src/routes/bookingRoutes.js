@@ -14,4 +14,7 @@ export default (server) => {
       LogicalConstraints.checkSeatNumberAvailability,
       bookingController.createNewBooking,
     );
+    
+  server.route('/api/v1/bookings/:bookingId')
+    .get(Authenticate.verifyToken, bookingController.fetchSingleBooking);
 };

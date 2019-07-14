@@ -120,4 +120,22 @@ describe('Booking Routes', () => {
       }
     });
   });
+  
+  describe('Fetch a particular booking', () => {
+    it('should fetch a specifc booking from the database', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .get(`${allBookings}/${bookingId}`)
+          .set('x-access-token', token);
+          
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+        const { data } = result.body;
+        data.should.be.an('object');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });
