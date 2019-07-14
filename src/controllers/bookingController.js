@@ -6,6 +6,7 @@ const {
   getAllBookings,
   getSingleBooking,
   updateBooking,
+  deleteBooking,
 } = bookingModel;
 
 class bookingController {
@@ -30,6 +31,13 @@ class bookingController {
   static async updateOldBooking({ body, params }, res) {
     const response = await updateBooking(body, params);
     return HelperUtils.serverResponse(response, res, 200, 'Booking', 'updated');
+  }
+  
+  static async deleteOldBooking({ params }, res) {
+    const { bookingId } = params;
+    const [tripId, userId] = bookingId.match(/[0-9]+,[0-9]+/)[0].split(',');
+    const [response] = await deleteBooking('booking_id', tripId, userId);
+    return HelperUtils.serverResponse(response, res, 200, 'Booking', 'deleted');
   }
 }
 

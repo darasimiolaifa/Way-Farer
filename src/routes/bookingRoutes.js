@@ -27,5 +27,10 @@ export default (server) => {
       LogicalConstraints.checkSeatsLeft,
       LogicalConstraints.checkSeatNumberAvailability,
       bookingController.updateOldBooking,
+    )
+    .delete(
+      Authenticate.verifyToken,
+      Authenticate.verifyOwnership,
+      bookingController.deleteOldBooking,
     );
 };
