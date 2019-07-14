@@ -5,6 +5,7 @@ const {
   createBooking,
   getAllBookings,
   getSingleBooking,
+  updateBooking,
 } = bookingModel;
 
 class bookingController {
@@ -24,6 +25,11 @@ class bookingController {
     const [tripId, userId] = bookingId.match(/[0-9]+,[0-9]+/)[0].split(',');
     const [response] = await getSingleBooking(tripId, userId);
     return HelperUtils.serverResponse(response, res);
+  }
+  
+  static async updateOldBooking({ body, params }, res) {
+    const response = await updateBooking(body, params);
+    return HelperUtils.serverResponse(response, res, 200, 'Booking', 'updated');
   }
 }
 

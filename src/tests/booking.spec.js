@@ -138,4 +138,26 @@ describe('Booking Routes', () => {
       }
     });
   });
+  
+  describe('Update a particular booking', () => {
+    it('should update a specifc booking from the database', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .patch(`${allBookings}/${bookingId}`)
+          .set('x-access-token', token)
+          .send({
+            seatNumber: 10,
+          });
+          
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+        const { data } = result.body;
+        data.should.be.an('object');
+        data.should.have.property('message', 'Booking updated successfully.');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });
