@@ -34,6 +34,13 @@ const bookingModel = {
     
     return query(sql, queryParams);
   },
+  
+  async updateBooking(body, params) {
+    const { tripId, userId, seatNumber } = body;
+    const { tripId: paramsTripid, userId: paramsUserId } = params.bookingId;
+    const sql = 'UPDATE bookings SET trip_id = $1, user_id = $2, seat_number = $3 WHERE (booking_id).trip_id = $4 AND (booking_id).user_id = $5 RETURNING *';
+    return query(sql, [tripId, userId, seatNumber, paramsTripid, paramsUserId]);
+  },
 };
 
 export default bookingModel;

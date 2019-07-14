@@ -2,6 +2,7 @@
 import userModel from '../models/userModel';
 import busModel from '../models/busModel';
 import tripModel from '../models/tripModel';
+import bookingModel from '../models/bookingModel';
 import HelperUtils from '../helperUtils/helperUtils';
 
 class BuildUpdateData {
@@ -21,6 +22,15 @@ class BuildUpdateData {
     const { getSingleTrip } = tripModel;
     const [trip] = await getSingleTrip(params);
     return HelperUtils.buildUpdateData(trip, 'Trip', body, res, next);
+  }
+  
+  static async bookingData({ params, body }, res, next) {
+    const { getSingleBooking } = bookingModel;
+    const { bookingId } = params;
+    const [tripId, userId] = bookingId.match(/[0-9]+,[0-9]+/)[0].split(',');
+    const [booking] = await getSingleBooking(tripId, userId);
+    params.bookingId = { tripId, userId };
+    return HelperUtils.buildUpdateData(booking, 'Booking', body, res, next);
   }
 }
 
