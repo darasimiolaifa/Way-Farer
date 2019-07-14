@@ -102,4 +102,22 @@ describe('Booking Routes', () => {
       }
     });
   });
+  
+  describe('Fetch all bookings', () => {
+    it('should fetch all the bookings in the database', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .get(allBookings)
+          .set('x-access-token', token);
+          
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+        const { data } = result.body;
+        data.should.be.an('array');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });
