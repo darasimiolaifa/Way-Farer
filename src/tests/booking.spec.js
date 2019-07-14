@@ -160,4 +160,23 @@ describe('Booking Routes', () => {
       }
     });
   });
+  
+  describe('Delete a particular booking', () => {
+    it('should delete a specifc booking from the database', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .delete(`${allBookings}/${bookingId}`)
+          .set('x-access-token', token);
+          
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+        const { data } = result.body;
+        data.should.be.an('object');
+        data.should.have.property('message', 'Booking deleted successfully.');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
 });
