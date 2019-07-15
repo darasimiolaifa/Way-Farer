@@ -1,6 +1,6 @@
 import queryFunction from '../database';
 
-const { query } = queryFunction;
+const { query, buildTripsQuery } = queryFunction;
 
 const tripModel = {
   async createTrip({
@@ -10,9 +10,9 @@ const tripModel = {
     return query(sql, [busId, origin, destination, tripDate, fare]);
   },
   
-  async getAllTrips() {
-    const sql = 'SELECT * FROM trips';
-    return query(sql);
+  async getAllTrips(isAdmin, params) {
+    const { finalQuery, queryParameters } = buildTripsQuery(isAdmin, params);
+    return query(finalQuery, queryParameters);
   },
   
   async getSingleTrip({ tripId }) {
