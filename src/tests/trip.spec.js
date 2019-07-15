@@ -119,6 +119,32 @@ describe('Trips Routes', () => {
         throw new Error(error);
       }
     });
+    
+    it('should fetch all trips occurring on/after a particular date', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .get(`${allTrips}?from=04/12/19`)
+          .set('x-access-token', token);
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+    
+    it('should fetch all trips occurring on/before a particular date', async () => {
+      try {
+        const result = await chai
+          .request(app)
+          .get(`${allTrips}?to=04/20/20`)
+          .set('x-access-token', token);
+        result.should.have.status(200);
+        result.body.should.have.property('data');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
   });
   
   describe('Fetch a particular trip', () => {
