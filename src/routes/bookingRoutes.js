@@ -16,7 +16,7 @@ export default (server) => {
       bookingController.createNewBooking,
     );
     
-  server.route('/api/v1/bookings/:bookingId')
+  server.route('/api/v1/bookings/:booking_id')
     .get(Authenticate.verifyToken, bookingController.fetchSingleBooking)
     .patch(
       Authenticate.verifyToken,

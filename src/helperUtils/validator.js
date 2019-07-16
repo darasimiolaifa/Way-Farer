@@ -4,7 +4,7 @@ const validator = HelperUtils.validate();
 
 export default (key, body, errors) => {
   const value = body[key];
-  const optionalFields = ['seatNumber'];
+  const optionalFields = ['seat_number'];
   
   if (validator.emptyBody.test(body)) {
     errors.push('The request body is empty. Please supply arguments to the endpoint.');
@@ -14,8 +14,8 @@ export default (key, body, errors) => {
   }
   
   switch (key) {
-    case 'firstName':
-    case 'lastName':
+    case 'first_name':
+    case 'last_name':
       if (!validator.name.test(value)) {
         errors.push(`The ${key} input is invalid. Please correct it and resend.`);
       } else body[key] = value ? value.toLowerCase().replace(/\s+/g, '') : undefined;
@@ -39,17 +39,17 @@ export default (key, body, errors) => {
     case 'destination':
     case 'model':
     case 'manufacturer':
-    case 'numberPlate':
+    case 'number_plate':
       if (!validator.string.test(value)) {
         errors.push(`Please supply a valid ${key}`);
       } else body[key] = value ? value.toLowerCase().replace(/\s+/g, '') : undefined;
       break;
-    case 'tripDate':
+    case 'trip_date':
       if (!validator.date.test(new Date(`${value}`).toLocaleDateString())) {
         errors.push(`Please supply a valid ${key}`);
       }
       break;
-    case 'seatNumber':
+    case 'seat_number':
       if (value && !(validator.integer.test(value) && value > 0)) {
         errors.push(`Please supply a valid ${key}`);
       }

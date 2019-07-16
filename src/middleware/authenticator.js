@@ -39,10 +39,10 @@ class Authenticate {
     const { user } = body;
     if (url.includes('users')) {
       method = getSingleUser;
-      args = ['user_id', params.userId, false];
+      args = ['user_id', params.user_id, false];
     } else if (url.includes('bookings')) {
       method = getSingleBooking;
-      args = params.bookingId.match(/[0-9]+,[0-9]+/)[0].split(',');
+      args = params.booking_id.match(/[0-9]+,[0-9]+/)[0].split(',');
     }
     const [resource] = await method(...args);
     if (resource && (resource.user_id !== user.user_id && !user.is_admin)) {

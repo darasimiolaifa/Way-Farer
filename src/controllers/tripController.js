@@ -17,8 +17,8 @@ class tripController {
   }
   
   static async fetchAllTrips({ body, query }, res) {
-    const { is_admin: isAdmin } = body.user;
-    const response = await getAllTrips(isAdmin, query);
+    const { is_admin } = body.user;
+    const response = await getAllTrips(is_admin, query);
     return HelperUtils.serverResponse(response, res, 200, 'trips');
   }
   

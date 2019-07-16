@@ -3,7 +3,7 @@ import HelperUtils from '../helperUtils/helperUtils';
 
 class AuthValidationClass {
   static async signup({ body }, res, next) {
-    const fields = ['firstName', 'lastName', 'email', 'password'];
+    const fields = ['first_name', 'last_name', 'email', 'password'];
     const error = [];
     
     fields.forEach(element => validator(element, body, error));

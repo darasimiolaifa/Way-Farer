@@ -6,7 +6,7 @@ export default (server) => {
   server.route('/api/v1/users')
     .get(Authenticate.verifyToken, Authenticate.isAdmin, userController.fetchAllUsers);
     
-  server.route('/api/v1/users/:userId')
+  server.route('/api/v1/users/:user_id')
     .get(
       Authenticate.verifyToken,
       Authenticate.verifyOwnership,

@@ -30,12 +30,9 @@
                 "ignorePropertyModificationsFor": ["body", "req", "params"]
             }
         ],
-        "consistent-return": [
-            "error",
-            {
-                "treatUndefinedAsUnspecified": true
-            }
-        ],
-        "prefer-destructuring": 0
+        "consistent-return": 0,
+        "prefer-destructuring": 0,
+        "camelcase": 0,
+        "no-unneeded-ternary": 0
     }
 }

@@ -13,12 +13,12 @@ export default (server) => {
       tripController.createNewTrip,
     );
   
-  server.route('/api/v1/trips/:tripId')
+  server.route('/api/v1/trips/:trip_id')
     .get(Authenticate.verifyToken, tripController.fetchSingleTrip)
     .patch(Authenticate.verifyToken, Authenticate.isAdmin, tripController.updateOldTripStatus)
     .delete(Authenticate.verifyToken, Authenticate.isAdmin, tripController.deleteOldTrip);
     
-  server.route('/api/v1/trips/:tripId/edit')
+  server.route('/api/v1/trips/:trip_id/edit')
     .patch(
       Authenticate.verifyToken,
       Authenticate.isAdmin,
