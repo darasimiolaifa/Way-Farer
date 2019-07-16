@@ -14,8 +14,8 @@ describe('Authentication routes', () => {
   const login = `${apiPrefix}/signin`;
   
   user = {
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
+    first_name: faker.name.firstName(),
+    last_name: faker.name.lastName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
   };
@@ -38,7 +38,7 @@ describe('Authentication routes', () => {
     
     it('should return an error message when one of the fields is empty, missing, or invalid', async () => {
       const incompleteUser = {
-        firstName: faker.internet.email(),
+        first_name: faker.internet.email(),
         email: faker.name.lastName(),
         password: '',
       };

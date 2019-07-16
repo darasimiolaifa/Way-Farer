@@ -53,22 +53,12 @@ class HelperUtils {
     }, process.env.APP_SECRET);
   }
   
-  static transformToCamelCase(theString) {
-    const splittedString = theString.split('_');
-    const camelCasedArray = splittedString.map((element, index) => {
-      if (index === 0) return element;
-      return element[0].toUpperCase() + element.slice(1);
-    });
-    
-    return camelCasedArray.join('');
-  }
-  
   static buildUpdateData(model, resource, body, res, next) {
     if (!model) return res.status(404).send({ status: 404, error: `${resource} does not exist.` });
     const fields = Object.keys(model);
-    fields.forEach((element) => {
-      const field = HelperUtils.transformToCamelCase(element);
-      body[field] = body[field] ? body[field] : model[element];
+    fields.forEach((field) => {
+      const element = body[field];
+      body[field] = element ? element : model[field];
     });
     
     return next();

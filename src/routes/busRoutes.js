@@ -13,7 +13,7 @@ export default (server) => {
       busController.createNewBus,
     );
     
-  server.route('/api/v1/buses/:busId')
+  server.route('/api/v1/buses/:bus_id')
     .get(Authenticate.verifyToken, Authenticate.isAdmin, busController.fetchSingleBus)
     .patch(
       Authenticate.verifyToken,

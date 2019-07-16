@@ -7,7 +7,7 @@ chai.should();
 
 let user;
 let token;
-let busId;
+let bus_id;
 
 describe('Bus Routes', () => {
   user = {
@@ -22,7 +22,7 @@ describe('Bus Routes', () => {
   describe('Create Buses', () => {
     it('should allow only the admin to create bus records', async () => {
       const bus = {
-        numberPlate: 'H25FY',
+        number_plate: 'H25FY',
         manufacturer: 'Honda',
         model: 'Traveller',
         year: '2015',
@@ -52,7 +52,7 @@ describe('Bus Routes', () => {
         result.should.have.status(201);
         result.body.should.have.property('data');
         const { data } = result.body;
-        busId = data.bus_id;
+        bus_id = data.bus_id;
       } catch (error) {
         throw new Error(error);
       }
@@ -65,14 +65,14 @@ describe('Bus Routes', () => {
           .post(allBuses)
           .set('token', token)
           .send({
-            numberPlate: 'H25FY',
+            number_plate: 'H25FY',
             manufacturer: 'Honda',
             model: 'Traveller',
             year: 'Last year',
             capacity: 'Large',
           });
         result.should.have.status(400);
-        result.body.should.have.property('errors');
+        result.body.should.have.property('error');
       } catch (error) {
         throw new Error(error);
       }
@@ -99,7 +99,7 @@ describe('Bus Routes', () => {
       try {
         const result = await chai
           .request(app)
-          .get(`${allBuses}/${busId}`)
+          .get(`${allBuses}/${bus_id}`)
           .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
@@ -114,7 +114,7 @@ describe('Bus Routes', () => {
       try {
         const result = await chai
           .request(app)
-          .patch(`${allBuses}/${busId}`)
+          .patch(`${allBuses}/${bus_id}`)
           .set('token', token)
           .send({
             year: '2012',
@@ -133,7 +133,7 @@ describe('Bus Routes', () => {
       try {
         const result = await chai
           .request(app)
-          .delete(`${allBuses}/${busId}`)
+          .delete(`${allBuses}/${bus_id}`)
           .set('token', token);
           
         result.should.have.status(200);

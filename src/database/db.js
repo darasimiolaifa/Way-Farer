@@ -20,6 +20,7 @@ const pool = new Pool({
 
 pool.on('connect', () => {
   console.log('Database connected');
+  console.log(process.env.DATABASE_URL);
 });
 
 const createTables = () => {

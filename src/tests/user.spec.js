@@ -8,7 +8,7 @@ chai.should();
 
 let user;
 let token;
-let userId;
+let user_id;
 
 describe('Users Routes', () => {
   const apiPrefix = '/api/v1';
@@ -16,8 +16,8 @@ describe('Users Routes', () => {
   const signup = `${apiPrefix}/auth/signup`;
   const userRoute = `${apiPrefix}/users`;
   user = {
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
+    first_name: faker.name.firstName(),
+    last_name: faker.name.lastName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
   };
@@ -54,17 +54,17 @@ describe('Users Routes', () => {
           .send(user);
         result.should.have.status(201);
         const { data } = result.body;
-        userId = data.user_id;
+        user_id = data.user_id;
         token = data.token;
         
         result = await chai
           .request(app)
-          .get(`${userRoute}/${userId}`)
+          .get(`${userRoute}/${user_id}`)
           .set('token', token);
         result.should.have.status(200);
         result.body.should.property('data');
         const { data: returnedUser } = result.body;
-        userId.should.be.equal(returnedUser.user_id);
+        user_id.should.be.equal(returnedUser.user_id);
       } catch (error) {
         throw new Error(error);
       }
@@ -76,7 +76,7 @@ describe('Users Routes', () => {
       try {
         const result = await chai
           .request(app)
-          .patch(`${userRoute}/${userId}`)
+          .patch(`${userRoute}/${user_id}`)
           .set('token', token)
           .send({
             email: faker.internet.email(),
@@ -106,7 +106,7 @@ describe('Users Routes', () => {
         
         result = await chai
           .request(app)
-          .delete(`${userRoute}/${userId}`)
+          .delete(`${userRoute}/${user_id}`)
           .set('token', adminToken);
           
         result.should.have.status(200);

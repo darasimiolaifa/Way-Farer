@@ -20,8 +20,8 @@ describe('Booking Routes', () => {
   const allBookings = `${apiPrefix}/bookings`;
   
   const booking = {
-    tripId: 1,
-    userId: 1,
+    trip_id: 1,
+    user_id: 1,
   };
   
   describe('Create a booking', () => {
@@ -59,7 +59,7 @@ describe('Booking Routes', () => {
           .send({});
           
         result.should.have.status(400);
-        result.body.should.have.property('errors');
+        result.body.should.have.property('error');
       } catch (error) {
         throw new Error(error);
       }
@@ -73,7 +73,7 @@ describe('Booking Routes', () => {
           .request(app)
           .post(allBookings)
           .set('token', token)
-          .send({ ...booking, seatNumber: 20 });
+          .send({ ...booking, seat_number: 20 });
           
         result.should.have.status(400);
         result.body.should.have.property('error');
@@ -88,7 +88,7 @@ describe('Booking Routes', () => {
           .request(app)
           .post(allBookings)
           .set('token', token)
-          .send({ ...booking, seatNumber: 7 });
+          .send({ ...booking, seat_number: 7 });
         
         result.should.have.status(201);
         result.body.should.have.property('data');
@@ -144,7 +144,7 @@ describe('Booking Routes', () => {
           .patch(`${allBookings}/${bookingId}`)
           .set('token', token)
           .send({
-            seatNumber: 10,
+            seat_number: 10,
           });
           
         result.should.have.status(200);

@@ -15,7 +15,7 @@ class userController {
   }
   
   static async fetchSingleUser({ params }, res) {
-    const [response] = await getSingleUser('user_id', params.userId, false);
+    const [response] = await getSingleUser('user_id', params.user_id, false);
     return HelperUtils.serverResponse(response, res);
   }
   

@@ -7,7 +7,7 @@ import HelperUtils from '../helperUtils/helperUtils';
 class BuildUpdateData {
   static async userData({ params, body }, res, next) {
     const { getSingleUser } = userModel;
-    const [user] = await getSingleUser('user_id', params.userId);
+    const [user] = await getSingleUser('user_id', params.user_id);
     return HelperUtils.buildUpdateData(user, 'User', body, res, next);
   }
   
@@ -25,10 +25,10 @@ class BuildUpdateData {
   
   static async bookingData({ params, body }, res, next) {
     const { getSingleBooking } = bookingModel;
-    const { bookingId } = params;
-    const [tripId, userId] = bookingId.match(/[0-9]+,[0-9]+/)[0].split(',');
-    const [booking] = await getSingleBooking(tripId, userId);
-    params.bookingId = { tripId, userId };
+    const { booking_id } = params;
+    const [trip_id, user_id] = booking_id.match(/[0-9]+,[0-9]+/)[0].split(',');
+    const [booking] = await getSingleBooking(trip_id, user_id);
+    params.booking_id = { trip_id, user_id };
     return HelperUtils.buildUpdateData(booking, 'Booking', body, res, next);
   }
 }

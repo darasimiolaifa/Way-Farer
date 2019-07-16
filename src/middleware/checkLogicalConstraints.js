@@ -7,10 +7,11 @@ const { getSingleBooking } = bookingModel;
 class LogicalConstraints {
   static async checkSeatsLeft({ body }, res, next) {
     let data;
+    const { seat_number } = body;
     const [trip] = await getSingleTrip(body);
     if (!trip.seats_left > 0) {
       data = { status: 400, error: 'Sorry, this trip has been fully booked.' };
-    } else if (body.seatNumber && body.seatNumber > trip.bus_capacity) {
+    } else if (seat_number && seat_number > trip.bus_capacity) {
       data = { status: 400, error: `Sorry, the maximum number of seats for this trip is ${trip.bus_capacity}` };
     }
     if (data) return res.status(400).send(data);
@@ -26,10 +27,10 @@ class LogicalConstraints {
   }
   
   static async checkSeatNumberAvailability({ body }, res, next) {
-    const { tripId, userId, seatNumber } = body;
-    const [booking] = await getSingleBooking(tripId, userId);
+    const { trip_id, user_id, seat_number } = body;
+    const [booking] = await getSingleBooking(trip_id, user_id);
     if (booking) {
-      if (booking.seat_number === seatNumber && booking.user_id !== userId) {
+      if (booking.seat_number === seat_number && booking.user_id !== user_id) {
         return res.status(400).send({ status: 400, error: 'Sorry, this seat number is no longer available.' });
       }
     }

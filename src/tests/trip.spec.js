@@ -8,7 +8,7 @@ chai.should();
 
 let user;
 let token;
-let tripId;
+let trip_id;
 
 describe('Trips Routes', () => {
   user = {
@@ -22,10 +22,10 @@ describe('Trips Routes', () => {
   describe('Create trips', () => {
     it('should allow only admin to create trips', async () => {
       const trip = {
-        busId: 1,
+        bus_id: 1,
         origin: faker.address.city(),
         destination: faker.address.city(),
-        tripDate: faker.date.future(),
+        trip_date: faker.date.future(),
         fare: faker.finance.amount(),
       };
       
@@ -47,8 +47,8 @@ describe('Trips Routes', () => {
         
         result.should.have.status(201);
         result.body.should.have.property('data');
-        const { data: tripData } = result.body;
-        tripId = tripData.trip_id;
+        const { data: trip_data } = result.body;
+        trip_id = trip_data.trip_id;
       } catch (error) {
         throw new Error(error);
       }
@@ -68,7 +68,7 @@ describe('Trips Routes', () => {
             fare: faker.random.word(),
           });
         result.should.have.status(400);
-        result.body.should.have.property('errors');
+        result.body.should.have.property('error');
       } catch (error) {
         throw new Error(error);
       }
@@ -149,7 +149,7 @@ describe('Trips Routes', () => {
       try {
         const result = await chai
           .request(app)
-          .get(`${allTrips}/${tripId}`)
+          .get(`${allTrips}/${trip_id}`)
           .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
@@ -164,7 +164,7 @@ describe('Trips Routes', () => {
       try {
         const result = await chai
           .request(app)
-          .patch(`${allTrips}/${tripId}/edit`)
+          .patch(`${allTrips}/${trip_id}/edit`)
           .set('token', token)
           .send({
             tripDate: faker.date.future(),
@@ -183,7 +183,7 @@ describe('Trips Routes', () => {
       try {
         const result = await chai
           .request(app)
-          .patch(`${allTrips}/${tripId}`)
+          .patch(`${allTrips}/${trip_id}`)
           .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
@@ -198,7 +198,7 @@ describe('Trips Routes', () => {
       try {
         const result = await chai
           .request(app)
-          .delete(`${allTrips}/${tripId}`)
+          .delete(`${allTrips}/${trip_id}`)
           .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
