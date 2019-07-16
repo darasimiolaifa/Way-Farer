@@ -1,15 +1,19 @@
 import '@babel/polyfill';
 import express from 'express';
+import swaggerUI from 'swagger-ui-express';
 import addAuthRoutes from './routes/authRoutes';
 import addUserRoutes from './routes/userRoutes';
 import addBusRoutes from './routes/busRoutes';
 import addTripRoutes from './routes/tripRoutes';
 import addBookingRoutes from './routes/bookingRoutes';
+import apiDoc from './wayfarer-doc.json';
+
 
 const server = express();
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
+server.use('/api/v1/docs', swaggerUI.serve, swaggerUI.setup(apiDoc));
 
 addAuthRoutes(server);
 addUserRoutes(server);
