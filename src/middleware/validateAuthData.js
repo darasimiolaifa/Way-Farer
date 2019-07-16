@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import validator from '../helperUtils/validator';
 import HelperUtils from '../helperUtils/helperUtils';
 

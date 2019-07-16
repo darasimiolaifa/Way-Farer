@@ -1,4 +1,3 @@
-/* eslint-disable object-curly-newline */
 import queryFunction from '../database';
 
 const { query } = queryFunction;
@@ -10,7 +9,9 @@ const UserModel = {
     return query(sql);
   },
   
-  async createUser({ firstName, lastName, email, password }) {
+  async createUser({
+    firstName, lastName, email, password,
+  }) {
     const sql = 'INSERT INTO users(first_name, last_name, password, email) VALUES ($1, $2, $3, $4) RETURNING user_id, first_name, last_name, email, is_admin';
     
     return query(sql, [firstName, lastName, password, email]);

@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/darasimiolaifa/Way-Farer.svg?branch=develop)](https://travis-ci.org/darasimiolaifa/Way-Farer)
 [![Coverage Status](https://coveralls.io/repos/github/darasimiolaifa/Way-Farer/badge.svg?branch=develop)](https://coveralls.io/github/darasimiolaifa/Way-Farer?branch=develop)
-[![Maintainability](https://api.codeclimate.com/v1/badges/de3bc966d85dc4a85794/maintainability)](https://codeclimate.com/github/darasimiolaifa/Way-Farer/maintainability)# Way-Farer
+[![Maintainability](https://api.codeclimate.com/v1/badges/de3bc966d85dc4a85794/maintainability)](https://codeclimate.com/github/darasimiolaifa/Way-Farer/maintainability)
+
+# Way-Farer
 A public bus transport booking application.
 
 ## Project Overview

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import userModel from '../models/userModel';
 import busModel from '../models/busModel';
 import tripModel from '../models/tripModel';

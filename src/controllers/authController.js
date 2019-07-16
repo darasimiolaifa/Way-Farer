@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import bcrypt from 'bcryptjs';
 import userModel from '../models/userModel';
 import HelperUtils from '../helperUtils/helperUtils';
