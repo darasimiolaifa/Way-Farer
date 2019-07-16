@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import JWT from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import userModel from '../models/userModel';
@@ -30,7 +29,6 @@ class HelperUtils {
     };
   }
   
-  // eslint-disable-next-line consistent-return
   static async validateAuthDetails({ email, password }, errors = []) {
     try {
       const rows = await getSingleUser('email', email);

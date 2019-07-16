@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import HelperUtils from './helperUtils';
 
 const validator = HelperUtils.validate();

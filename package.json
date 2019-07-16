@@ -11,7 +11,7 @@
   "main": "./src/app.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test npm run migrations && nyc --require @babel/register mocha ./src/tests/*.spec.js --exit",
-    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/app.js",
+    "dev": "cross-env NODE_ENV=development npm run migrations && nodemon --exec babel-node ./src/app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build ./src -s",

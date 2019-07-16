@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable prefer-destructuring */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import faker from 'faker';
@@ -8,8 +6,6 @@ import app from '../server';
 chai.use(chaiHttp);
 chai.should();
 
-// eslint-disable-next-line no-unused-vars
-let token;
 let user;
 
 describe('Authentication routes', () => {
@@ -35,7 +31,6 @@ describe('Authentication routes', () => {
         result.body.should.have.property('data');
         const { data } = result.body;
         data.should.have.property('token');
-        token = data.token;
       } catch (error) {
         throw new Error(error);
       }
