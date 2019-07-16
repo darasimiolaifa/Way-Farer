@@ -12,7 +12,7 @@ class InputDataValidator {
   }
   
   static validateTripData({ body }, res, next) {
-    const fields = ['bus_id', 'origin', 'destination', 'trip_date', 'fare'];
+    const fields = ['bus_id', 'origin', 'destination', 'fare'];
     const error = [];
     
     fields.forEach(element => validator(element, body, error));
