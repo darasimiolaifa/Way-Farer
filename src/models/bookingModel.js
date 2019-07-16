@@ -5,7 +5,7 @@ const { query } = queryFunction;
 const { getSingleTrip } = tripModel;
 
 const bookingModel = {
-  async createBooking({ trip_id, user_id, seat_number }) {
+  async createBooking({ trip_id, user, seat_number }) {
     let nextAvailableSeat;
     if (!seat_number) {
       const [response] = await getSingleTrip({ trip_id });
@@ -14,7 +14,7 @@ const bookingModel = {
     } else nextAvailableSeat = seat_number;
     
     const sql = 'INSERT INTO bookings(booking_id, trip_id, user_id, seat_number) VALUES(ROW($1, $2), $1, $2, $3) RETURNING booking_id AS id, trip_id, user_id, seat_number';
-    return query(sql, [trip_id, user_id, nextAvailableSeat]);
+    return query(sql, [trip_id, user.id, nextAvailableSeat]);
   },
   
   async getSingleBooking(trip_id, user_id) {
