@@ -21,7 +21,7 @@ class busController {
   }
   
   static async fetchSingleBus({ params }, res) {
-    const [response] = await getSingleBus(params);
+    const response = await getSingleBus(params);
     return HelperUtils.serverResponse(response, res);
   }
   
