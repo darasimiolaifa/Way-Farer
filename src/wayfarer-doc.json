@@ -1,0 +1,883 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Way Farer is a public bus transportation booking web application.",
+    "version": "1.0.0",
+    "title": "Way Farer"
+  },
+  "host": "darasimi-wayfarer.herokuapp.com",
+  "basePath": "/api/v1/",
+  "tags": [
+    {
+      "name": "User",
+      "description": "All operation endpoints linked to users"
+    },
+    {
+      "name": "Trips",
+      "description": "All operation endpoints linked to trips"
+    },
+    {
+      "name": "Buses",
+      "description": "All operation endpoints linked to buses"
+    },
+    {
+      "name": "Bookings",
+      "description": "All operation endpoints linked to bookings"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Creates a new user",
+        "description": "User enters valid credentials to signup.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "New user object to be created.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User-Signup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User successfuly created.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid credentials supplied"
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Signs user into the system",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The email and password for login",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User-Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully logged in.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get all users",
+        "description": "Gets all users in the database.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Gets a specific user by user id",
+        "description": "Returns user object",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The user that needs to be fetched.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Updates a user",
+        "description": "Supplies a body of updated data.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id that needs to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User-Signup"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User profile successfully updated."
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Delete user",
+        "description": "Deletes User with passed id.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the user that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User deleted successfully."
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/trips": {
+      "post": {
+        "tags": [
+          "Trips"
+        ],
+        "summary": "Creates a new trip to the database.",
+        "description": "Enables the Admin to create trips",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "New trip to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Trip-Body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trip created successfully",
+            "schema": {
+              "$ref": "#/definitions/Trip"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Trips"
+        ],
+        "summary": "Gets all registered trips on the platform",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Trip"
+            }
+          }
+        }
+      }
+    },
+    "/trips/{id}": {
+      "get": {
+        "tags": [
+          "Trips"
+        ],
+        "summary": "Gets a single trip by id",
+        "description": "Returns a single trip",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tripId",
+            "in": "path",
+            "description": "Id of trip to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Trip"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Trip not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Trips"
+        ],
+        "summary": "Updates a trip",
+        "description": "Supplies a body of update data.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tripId",
+            "in": "path",
+            "description": "Trip id that needs to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updates to trip object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Trip-Body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trip successfully updated."
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Trip not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Trips"
+        ],
+        "summary": "Deletes a trip",
+        "description": "Deletes a trip from the database",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tripId",
+            "in": "path",
+            "description": "Trip id to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted."
+          },
+          "400": {
+            "description": "Invalid id supplied."
+          },
+          "404": {
+            "description": "Trip not found."
+          }
+        }
+      }
+    },
+    "/bookings": {
+      "post": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Creates a new booking in the database.",
+        "description": "Enables the Admin to create bookings",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "New booking to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Booking-Body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Booking created successfully",
+            "schema": {
+              "$ref": "#/definitions/Booking"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Gets all registered bookings on the platform",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Booking"
+            }
+          }
+        }
+      }
+    },
+    "/bookings/{id}": {
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Gets a single booking by id",
+        "description": "Returns a single booking",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookingId",
+            "in": "path",
+            "description": "Id of booking to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Booking"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Booking not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Updates a booking",
+        "description": "Supplies a body of update data.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookingId",
+            "in": "path",
+            "description": "Booking id that needs to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updates to booking object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Booking-Body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Booking successfully updated."
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Booking not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Deletes a booking",
+        "description": "Deletes a booking from the database",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookingId",
+            "in": "path",
+            "description": "Booking id to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted."
+          },
+          "400": {
+            "description": "Invalid id supplied."
+          },
+          "404": {
+            "description": "Booking not found."
+          }
+        }
+      }
+    },
+    "/buses": {
+      "post": {
+        "tags": [
+          "Buses"
+        ],
+        "summary": "Creates a new bus in the database.",
+        "description": "Enables the Admin to create buses",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "New bus to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Bus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bus created successfully",
+            "schema": {
+              "$ref": "#/definitions/Bus"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Buses"
+        ],
+        "summary": "Gets all registered buses on the platform",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Bus"
+            }
+          }
+        }
+      }
+    },
+    "/buses/{id}": {
+      "get": {
+        "tags": [
+          "Buses"
+        ],
+        "summary": "Gets a single bus by id",
+        "description": "Returns a single bus",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "busId",
+            "in": "path",
+            "description": "Id of bus to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Bus"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Bus not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Buses"
+        ],
+        "summary": "Updates a bus entry",
+        "description": "Supplies a body of update data.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "busId",
+            "in": "path",
+            "description": "Bus id that needs to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updates to bus entity",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Bus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bus successfully updated."
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Bus not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Buses"
+        ],
+        "summary": "Deletes a bus",
+        "description": "Deletes a bus from the database",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "busId",
+            "in": "path",
+            "description": "Bus id to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted."
+          },
+          "400": {
+            "description": "Invalid id supplied."
+          },
+          "404": {
+            "description": "Bus not found."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Trip": {
+      "type": "object",
+      "properties": {
+        "tripId": {
+          "type": "integer"
+        },
+        "busId": {
+          "type": "integer"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "string"
+        },
+        "fare": {
+          "type": "float"
+        },
+        "status": {
+          "type": "string"
+        },
+        "trip_date": {
+          "type": "date"
+        },
+        "bus_manufacturer": {
+          "type": "string"
+        },
+        "bus_model": {
+          "type": "string"
+        },
+        "bus_production_year": {
+          "type": "string"
+        },
+        "bus_capacity": {
+          "type": "string"
+        },
+        "days_left": {
+          "type": "integer"
+        },
+        "seats_left": {
+          "type": "integer"
+        }
+      }
+    },
+    "Trip-Body": {
+      "type": "object",
+      "properties": {
+        "busId": {
+          "type": "integer"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "string"
+        },
+        "fare": {
+          "type": "float"
+        },
+        "trip_date": {
+          "type": "date"
+        }
+      }
+    },
+    "Bus": {
+      "type": "object",
+      "properties": {
+        "busId": {
+          "type": "integer"
+        },
+        "numberPlate": {
+          "type": "string"
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "capacity": {
+          "type": "integer"
+        }
+      }
+    },
+    "Booking-Body": {
+      "type": "object",
+      "properties": {
+        "tripId": {
+          "type": "integer"
+        },
+        "userId": {
+          "type": "integer"
+        },
+        "seatNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "Booking": {
+      "type": "object",
+      "properties": {
+        "booking_id": {
+          "type": "string"
+        },
+        "trip_id": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "seat_number": {
+          "type": "integer"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "string"
+        },
+        "trip_date": {
+          "type": "date"
+        },
+        "bus_id": {
+          "type": "integer"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "days_left": {
+          "type": "integer"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "isAdmin": {
+          "type": "boolean"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "User-Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "User-Signup": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

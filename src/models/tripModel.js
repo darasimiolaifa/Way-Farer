@@ -16,7 +16,7 @@ const tripModel = {
   },
   
   async getSingleTrip({ tripId }) {
-    const sql = 'SELECT t.trip_id, t.bus_id, t.origin, t.destination, t.fare, t.trip_date, t.status, b.manufacturer AS bus_manufacturer, b.model AS bus_model, b.year AS bus_production_year, b.capacity AS bus_capacity, (t.trip_date - CURRENT_DATE) AS days_left, (b.capacity - (SELECT COUNT(*) FROM bookings AS bk WHERE bk.trip_id = t.trip_id)) AS seats_left FROM trips AS t INNER JOIN buses AS b USING(bus_id) WHERE trip_id = $1 ORDER BY status ASC, days_left ASC';
+    const sql = 'SELECT t.trip_id, t.bus_id, t.origin, t.destination, t.fare, t.trip_date, t.status, b.manufacturer AS bus_manufacturer, b.model AS bus_model, b.year AS bus_production_year, b.capacity AS bus_capacity, (t.trip_date - CURRENT_DATE) AS days_left, (b.capacity - (SELECT COUNT(*) FROM bookings AS bk WHERE bk.trip_id = t.trip_id)) AS seats_left FROM trips AS t INNER JOIN buses AS b USING(bus_id) WHERE trip_id = $1';
     
     return query(sql, [tripId]);
   },
