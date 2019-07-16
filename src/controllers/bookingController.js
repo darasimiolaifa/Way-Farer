@@ -12,7 +12,13 @@ const {
 class bookingController {
   static async createNewBooking({ body }, res) {
     const [response] = await createBooking(body);
-    return HelperUtils.serverResponse(response, res, 201);
+    let booking;
+    if (response) {
+      const { trip_id, user_id } = response;
+      [booking] = await getSingleBooking(trip_id, user_id);
+      console.log(booking);
+    }
+    return HelperUtils.serverResponse(booking, res, 201);
   }
   
   static async fetchAllBookings({ body }, res) {
