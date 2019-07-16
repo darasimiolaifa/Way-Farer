@@ -22,7 +22,7 @@ class InputDataValidator {
   }
   
   static validateBookingData({ body }, res, next) {
-    const fields = ['user_id', 'trip_id', 'seat_number'];
+    const fields = ['trip_id', 'seat_number'];
     const error = [];
     
     fields.forEach(element => validator(element, body, error));
