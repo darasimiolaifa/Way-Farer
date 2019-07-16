@@ -26,9 +26,7 @@ class BuildUpdateData {
   static async bookingData({ params, body }, res, next) {
     const { getSingleBooking } = bookingModel;
     const { booking_id } = params;
-    const [trip_id, user_id] = booking_id.match(/[0-9]+,[0-9]+/)[0].split(',');
-    const [booking] = await getSingleBooking(trip_id, user_id);
-    params.booking_id = { trip_id, user_id };
+    const [booking] = await getSingleBooking(booking_id);
     return HelperUtils.buildUpdateData(booking, 'Booking', body, res, next);
   }
 }

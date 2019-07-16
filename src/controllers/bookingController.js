@@ -16,7 +16,6 @@ class bookingController {
     if (response) {
       const { trip_id, user_id } = response;
       [booking] = await getSingleBooking(trip_id, user_id);
-      console.log(booking);
     }
     return HelperUtils.serverResponse(booking, res, 201);
   }
@@ -29,20 +28,19 @@ class bookingController {
   
   static async fetchSingleBooking({ params }, res) {
     const { booking_id } = params;
-    const [trip_id, user_id] = booking_id.match(/[0-9]+,[0-9]+/)[0].split(',');
-    const [response] = await getSingleBooking(trip_id, user_id);
+    const [response] = await getSingleBooking(booking_id);
     return HelperUtils.serverResponse(response, res);
   }
   
   static async updateOldBooking({ body, params }, res) {
     const response = await updateBooking(body, params);
+
     return HelperUtils.serverResponse(response, res, 200, 'Booking', 'updated');
   }
   
   static async deleteOldBooking({ params }, res) {
     const { booking_id } = params;
-    const [trip_id, user_id] = booking_id.match(/[0-9]+,[0-9]+/)[0].split(',');
-    const [response] = await deleteBooking('booking_id', trip_id, user_id);
+    const [response] = await deleteBooking(booking_id);
     return HelperUtils.serverResponse(response, res, 200, 'Booking', 'deleted');
   }
 }

@@ -42,10 +42,10 @@ class Authenticate {
       args = ['user_id', params.user_id, false];
     } else if (url.includes('bookings')) {
       method = getSingleBooking;
-      args = params.booking_id.match(/[0-9]+,[0-9]+/)[0].split(',');
+      args = params.booking_id;
     }
     const [resource] = await method(...args);
-    if (resource && (resource.user_id !== user.user_id && !user.is_admin)) {
+    if (resource && (resource.user_id !== user.id) && !user.is_admin) {
       return res.status(403).send({ satatus: 403, error: 'You do not have permission to access this resource.' });
     }
     return next();
