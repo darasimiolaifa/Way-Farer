@@ -44,11 +44,6 @@ export default (key, body, errors) => {
         errors.push(`Please supply a valid ${key}`);
       } else body[key] = value ? value.toLowerCase().replace(/\s+/g, '') : undefined;
       break;
-    case 'trip_date':
-      if (!validator.date.test(new Date(`${value}`).toLocaleDateString())) {
-        errors.push(`Please supply a valid ${key}`);
-      }
-      break;
     case 'seat_number':
       if (value && !(validator.integer.test(value) && value > 0)) {
         errors.push(`Please supply a valid ${key}`);
