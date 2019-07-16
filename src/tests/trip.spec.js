@@ -42,7 +42,7 @@ describe('Trips Routes', () => {
         result = await chai
           .request(app)
           .post(allTrips)
-          .set('x-access-token', token)
+          .set('token', token)
           .send(trip);
         
         result.should.have.status(201);
@@ -59,7 +59,7 @@ describe('Trips Routes', () => {
         const result = await chai
           .request(app)
           .post(allTrips)
-          .set('x-access-token', token)
+          .set('token', token)
           .send({
             busId: 1,
             origin: faker.address.city(),
@@ -81,7 +81,7 @@ describe('Trips Routes', () => {
         const result = await chai
           .request(app)
           .get(allTrips)
-          .set('x-access-token', token);
+          .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
       } catch (error) {
@@ -96,7 +96,7 @@ describe('Trips Routes', () => {
         const result = await chai
           .request(app)
           .get(`${allTrips}?origin=Lagos`)
-          .set('x-access-token', token);
+          .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
       } catch (error) {
@@ -109,7 +109,7 @@ describe('Trips Routes', () => {
         const result = await chai
           .request(app)
           .get(`${allTrips}?destination=Ibadan`)
-          .set('x-access-token', token);
+          .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
       } catch (error) {
@@ -122,7 +122,7 @@ describe('Trips Routes', () => {
         const result = await chai
           .request(app)
           .get(`${allTrips}?from=04/12/19`)
-          .set('x-access-token', token);
+          .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
       } catch (error) {
@@ -135,7 +135,7 @@ describe('Trips Routes', () => {
         const result = await chai
           .request(app)
           .get(`${allTrips}?to=04/20/20`)
-          .set('x-access-token', token);
+          .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
       } catch (error) {
@@ -150,7 +150,7 @@ describe('Trips Routes', () => {
         const result = await chai
           .request(app)
           .get(`${allTrips}/${tripId}`)
-          .set('x-access-token', token);
+          .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
       } catch (error) {
@@ -165,7 +165,7 @@ describe('Trips Routes', () => {
         const result = await chai
           .request(app)
           .patch(`${allTrips}/${tripId}/edit`)
-          .set('x-access-token', token)
+          .set('token', token)
           .send({
             tripDate: faker.date.future(),
             fare: faker.finance.amount(),
@@ -184,7 +184,7 @@ describe('Trips Routes', () => {
         const result = await chai
           .request(app)
           .patch(`${allTrips}/${tripId}`)
-          .set('x-access-token', token);
+          .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
       } catch (error) {
@@ -199,7 +199,7 @@ describe('Trips Routes', () => {
         const result = await chai
           .request(app)
           .delete(`${allTrips}/${tripId}`)
-          .set('x-access-token', token);
+          .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
       } catch (error) {

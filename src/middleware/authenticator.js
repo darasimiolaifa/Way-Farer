@@ -7,7 +7,7 @@ const { getSingleBooking } = bookingModel;
 
 class Authenticate {
   static async verifyToken({ headers, body }, res, next) {
-    const token = headers['x-access-token'];
+    const { token } = headers;
     if (!token || token === '') {
       return res.status(400).send({ status: 400, error: 'Please provide a token.' });
     }
