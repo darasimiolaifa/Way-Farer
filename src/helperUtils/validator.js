@@ -35,8 +35,6 @@ export default (key, body, errors) => {
         errors.push(`Please supply a valid ${key}`);
       }
       break;
-    case 'origin':
-    case 'destination':
     case 'model':
     case 'manufacturer':
     case 'number_plate':
@@ -46,11 +44,6 @@ export default (key, body, errors) => {
       break;
     case 'seat_number':
       if (value && !(validator.integer.test(value) && value > 0)) {
-        errors.push(`Please supply a valid ${key}`);
-      }
-      break;
-    case 'fare':
-      if (!validator.float.test(value)) {
         errors.push(`Please supply a valid ${key}`);
       }
       break;
