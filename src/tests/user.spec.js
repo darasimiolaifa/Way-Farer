@@ -36,7 +36,7 @@ describe('Users Routes', () => {
         result = await chai
           .request(app)
           .get(userRoute)
-          .set('x-access-token', token);
+          .set('token', token);
         result.should.have.status(200);
         result.body.should.property('data');
       } catch (error) {
@@ -60,7 +60,7 @@ describe('Users Routes', () => {
         result = await chai
           .request(app)
           .get(`${userRoute}/${userId}`)
-          .set('x-access-token', token);
+          .set('token', token);
         result.should.have.status(200);
         result.body.should.property('data');
         const { data: returnedUser } = result.body;
@@ -77,7 +77,7 @@ describe('Users Routes', () => {
         const result = await chai
           .request(app)
           .patch(`${userRoute}/${userId}`)
-          .set('x-access-token', token)
+          .set('token', token)
           .send({
             email: faker.internet.email(),
             firstName: faker.name.lastName(),
@@ -107,7 +107,7 @@ describe('Users Routes', () => {
         result = await chai
           .request(app)
           .delete(`${userRoute}/${userId}`)
-          .set('x-access-token', adminToken);
+          .set('token', adminToken);
           
         result.should.have.status(200);
         result.body.should.have.property('data');
@@ -121,7 +121,7 @@ describe('Users Routes', () => {
         const result = await chai
           .request(app)
           .delete(`${userRoute}/10`)
-          .set('x-access-token', adminToken);
+          .set('token', adminToken);
           
         result.should.have.status(404);
         result.body.should.have.property('error');

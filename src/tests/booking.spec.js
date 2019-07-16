@@ -39,7 +39,7 @@ describe('Booking Routes', () => {
         result = await chai
           .request(app)
           .post(allBookings)
-          .set('x-access-token', token)
+          .set('token', token)
           .send(booking);
         result.should.have.status(201);
         result.body.should.have.property('data');
@@ -55,7 +55,7 @@ describe('Booking Routes', () => {
         const result = await chai
           .request(app)
           .post(allBookings)
-          .set('x-access-token', token)
+          .set('token', token)
           .send({});
           
         result.should.have.status(400);
@@ -72,7 +72,7 @@ describe('Booking Routes', () => {
         const result = await chai
           .request(app)
           .post(allBookings)
-          .set('x-access-token', token)
+          .set('token', token)
           .send({ ...booking, seatNumber: 20 });
           
         result.should.have.status(400);
@@ -87,7 +87,7 @@ describe('Booking Routes', () => {
         const result = await chai
           .request(app)
           .post(allBookings)
-          .set('x-access-token', token)
+          .set('token', token)
           .send({ ...booking, seatNumber: 7 });
         
         result.should.have.status(201);
@@ -106,7 +106,7 @@ describe('Booking Routes', () => {
         const result = await chai
           .request(app)
           .get(allBookings)
-          .set('x-access-token', token);
+          .set('token', token);
           
         result.should.have.status(200);
         result.body.should.have.property('data');
@@ -124,7 +124,7 @@ describe('Booking Routes', () => {
         const result = await chai
           .request(app)
           .get(`${allBookings}/${bookingId}`)
-          .set('x-access-token', token);
+          .set('token', token);
           
         result.should.have.status(200);
         result.body.should.have.property('data');
@@ -142,7 +142,7 @@ describe('Booking Routes', () => {
         const result = await chai
           .request(app)
           .patch(`${allBookings}/${bookingId}`)
-          .set('x-access-token', token)
+          .set('token', token)
           .send({
             seatNumber: 10,
           });
@@ -164,7 +164,7 @@ describe('Booking Routes', () => {
         const result = await chai
           .request(app)
           .delete(`${allBookings}/${bookingId}`)
-          .set('x-access-token', token);
+          .set('token', token);
           
         result.should.have.status(200);
         result.body.should.have.property('data');

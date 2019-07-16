@@ -46,7 +46,7 @@ describe('Bus Routes', () => {
         const result = await chai
           .request(app)
           .post(allBuses)
-          .set('x-access-token', token)
+          .set('token', token)
           .send(bus);
           
         result.should.have.status(201);
@@ -63,7 +63,7 @@ describe('Bus Routes', () => {
         const result = await chai
           .request(app)
           .post(allBuses)
-          .set('x-access-token', token)
+          .set('token', token)
           .send({
             numberPlate: 'H25FY',
             manufacturer: 'Honda',
@@ -85,7 +85,7 @@ describe('Bus Routes', () => {
         const result = await chai
           .request(app)
           .get(allBuses)
-          .set('x-access-token', token);
+          .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
       } catch (error) {
@@ -100,7 +100,7 @@ describe('Bus Routes', () => {
         const result = await chai
           .request(app)
           .get(`${allBuses}/${busId}`)
-          .set('x-access-token', token);
+          .set('token', token);
         result.should.have.status(200);
         result.body.should.have.property('data');
       } catch (error) {
@@ -115,7 +115,7 @@ describe('Bus Routes', () => {
         const result = await chai
           .request(app)
           .patch(`${allBuses}/${busId}`)
-          .set('x-access-token', token)
+          .set('token', token)
           .send({
             year: '2012',
             capacity: 1,
@@ -134,7 +134,7 @@ describe('Bus Routes', () => {
         const result = await chai
           .request(app)
           .delete(`${allBuses}/${busId}`)
-          .set('x-access-token', token);
+          .set('token', token);
           
         result.should.have.status(200);
         result.body.should.have.property('data');

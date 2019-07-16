@@ -6,7 +6,8 @@ import addUserRoutes from './routes/userRoutes';
 import addBusRoutes from './routes/busRoutes';
 import addTripRoutes from './routes/tripRoutes';
 import addBookingRoutes from './routes/bookingRoutes';
-import docs from './wayfarer.json';
+
+const docs = require('./wayfarer.json');
 
 const server = express();
 
