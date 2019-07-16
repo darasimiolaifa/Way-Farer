@@ -54,7 +54,7 @@ describe('Users Routes', () => {
           .send(user);
         result.should.have.status(201);
         const { data } = result.body;
-        user_id = data.user_id;
+        user_id = data.id;
         token = data.token;
         
         result = await chai
@@ -64,7 +64,7 @@ describe('Users Routes', () => {
         result.should.have.status(200);
         result.body.should.property('data');
         const { data: returnedUser } = result.body;
-        user_id.should.be.equal(returnedUser.user_id);
+        user_id.should.be.equal(returnedUser.id);
       } catch (error) {
         throw new Error(error);
       }

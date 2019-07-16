@@ -48,7 +48,7 @@ describe('Trips Routes', () => {
         result.should.have.status(201);
         result.body.should.have.property('data');
         const { data: trip_data } = result.body;
-        trip_id = trip_data.trip_id;
+        trip_id = trip_data.id;
       } catch (error) {
         throw new Error(error);
       }
@@ -170,6 +170,7 @@ describe('Trips Routes', () => {
             tripDate: faker.date.future(),
             fare: faker.finance.amount(),
           });
+          
         result.should.have.status(200);
         result.body.should.have.property('data');
       } catch (error) {

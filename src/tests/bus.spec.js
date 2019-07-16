@@ -52,7 +52,7 @@ describe('Bus Routes', () => {
         result.should.have.status(201);
         result.body.should.have.property('data');
         const { data } = result.body;
-        bus_id = data.bus_id;
+        bus_id = data.id;
       } catch (error) {
         throw new Error(error);
       }

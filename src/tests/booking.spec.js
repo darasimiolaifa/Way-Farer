@@ -44,7 +44,7 @@ describe('Booking Routes', () => {
         result.should.have.status(201);
         result.body.should.have.property('data');
         const { data: bookingData } = result.body;
-        bookingId = bookingData.booking_id;
+        bookingId = bookingData.id;
       } catch (error) {
         throw new Error(error);
       }
