@@ -14,8 +14,8 @@ class bookingController {
     const [response] = await createBooking(body);
     let booking;
     if (response) {
-      const { trip_id, user_id } = response;
-      [booking] = await getSingleBooking(trip_id, user_id);
+      const { id } = response;
+      [booking] = await getSingleBooking(id);
     }
     return HelperUtils.serverResponse(booking, res, 201);
   }
