@@ -9,11 +9,9 @@ export default (server) => {
   server.route('/api/v1/users/:user_id')
     .get(
       Authenticate.verifyToken,
-      Authenticate.verifyOwnership,
       userController.fetchSingleUser,
     ).patch(
       Authenticate.verifyToken,
-      Authenticate.verifyOwnership,
       BuildUpdateData.userData,
       userController.updateOldUser,
     ).delete(

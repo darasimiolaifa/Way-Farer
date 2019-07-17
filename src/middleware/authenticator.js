@@ -33,19 +33,11 @@ class Authenticate {
     return next();
   }
   
-  static async verifyOwnership({ body, url, params }, res, next) {
-    let method;
-    let args;
+  static async verifyOwnership({ body, params }, res, next) {
     const { user } = body;
-    if (url.includes('users')) {
-      method = getSingleUser;
-      args = ['user_id', params.user_id, false];
-    } else if (url.includes('bookings')) {
-      method = getSingleBooking;
-      args = params.booking_id;
-    }
-    const [resource] = await method(...args);
-    if (resource && (resource.user_id !== user.id) && !user.is_admin) {
+    const { booking_id } = params;
+    const [booking] = await getSingleBooking(...booking_id);
+    if (booking && (booking.user_id !== user.id) && !user.is_admin) {
       return res.status(403).send({ satatus: 403, error: 'You do not have permission to access this resource.' });
     }
     return next();
