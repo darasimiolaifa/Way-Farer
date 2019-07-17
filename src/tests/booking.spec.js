@@ -146,7 +146,7 @@ describe('Booking Routes', () => {
           .send({
             seat_number: 10,
           });
-          
+        
         result.should.have.status(200);
         result.body.should.have.property('data');
         const { data } = result.body;

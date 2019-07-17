@@ -26,9 +26,10 @@ class LogicalConstraints {
     return next();
   }
   
-  static async checkSeatNumberAvailability({ body }, res, next) {
-    const { trip_id, user_id, seat_number } = body;
-    const [booking] = await getSingleBooking(trip_id, user_id);
+  static async checkSeatNumberAvailability({ body, params }, res, next) {
+    const { user_id, seat_number } = body;
+    const { booking_id } = params;
+    const [booking] = await getSingleBooking(booking_id);
     if (booking) {
       if (booking.seat_number === seat_number && booking.user_id !== user_id) {
         return res.status(400).send({ status: 400, error: 'Sorry, this seat number is no longer available.' });

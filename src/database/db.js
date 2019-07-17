@@ -30,7 +30,6 @@ const createTables = () => {
   DROP TABLE IF EXISTS trips CASCADE;
   DROP TABLE IF EXISTS buses CASCADE;
   DROP TYPE IF EXISTS trip_status;
-  DROP TYPE IF EXISTS booking_key;
   
   CREATE TABLE users(
     user_id SERIAL PRIMARY KEY,
@@ -64,13 +63,8 @@ const createTables = () => {
     FOREIGN KEY(bus_id) REFERENCES buses(bus_id)
   );
   
-  CREATE TYPE booking_key AS (
-    trip_id INTEGER,
-    user_id INTEGER
-  );
-  
   CREATE TABLE bookings(
-    booking_id booking_key NOT NULL,
+    booking_id SERIAL PRIMARY KEY,
     trip_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     created_on DATE NOT NULL DEFAULT CURRENT_DATE,
